@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fa" ng-app="cafeui">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-rtl/dist/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="font/fonts-fa.css">
+    <title>دور همی کافه یوآي</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">دور همی کافه یو آی</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">خانه <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">صفحه دوم</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">ثبت یک دورهمی</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+    </header>
+    <div class="container well" ng-controller="EventController">
+
+        <div class="col-md-3">
+            <img ng-src="{{event.img}}" class="img-circle img-thumbnail img-responsive" alt="{{event.title}}" />
+        </div>
+        <div class="col-md-6">
+            <h1>{{event.title}}</h1>
+            <span>
+                <time class="lead">مورخه:
+                    <span dir="ltr"> {{event.date}} </span>
+                </time>
+            </span>
+            <br>
+            <span>
+                <time class="lead">ساعت: {{event.time}}</time>
+            </span>
+            <address class="lead">
+                <span>آدرس:</span>
+                <span>{{event.location.address}}</span>
+                <span>-</span>
+                <span>{{event.location.room}}</span>
+            </address>
+        </div>
+        <div class="col-md-3">
+            <h3>کی چی میگه:</h3>
+            <div>
+                <div class="well well-sm" ng-repeat="section in event.sections">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="btn-group-vertical" role="group" aria-label="...">
+                                <button class="btn btn-success" ng-click="UpVote(section)">+</button>
+                                <span class="input-group-addon">
+                                    <span class="badge">{{section.vote}}</span>
+                                </span>
+                                <button class="btn btn-danger" ng-click="DownVote(section)">-</button>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <h4>{{section.name}}</h4>
+                            <h5>{{section.subject}}</h5>
+                            <h5>{{section.duration}}</h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- scripts -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/jquery/dist/js/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="app.js" charset="utf-8"></script>
+    <script src="js/Controller/EventController.js" charset="utf-8"></script>
+</body>
+
+</html>
