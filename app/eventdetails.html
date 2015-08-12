@@ -35,7 +35,7 @@
                         <li><a href="#">صفحه دوم</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">ثبت یک دورهمی</a></li>
+                        <li><a href="newevent.html">ثبت یک دورهمی</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -59,6 +59,10 @@
             <span>
                 <time class="lead">ساعت: {{event.time}}</time>
             </span>
+            <br>
+            <span>
+                <time class="lead">هزینه: {{event.price | currency}}</time>
+            </span>
             <address class="lead">
                 <span>آدرس:</span>
                 <span>{{event.location.address}}</span>
@@ -68,26 +72,30 @@
         </div>
         <div class="col-md-3">
             <h3>کی چی میگه:</h3>
-            <div>
-                <div class="well well-sm" ng-repeat="section in event.sections">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="btn-group-vertical" role="group" aria-label="...">
-                                <button class="btn btn-success" ng-click="UpVote(section)">+</button>
-                                <span class="input-group-addon">
-                                    <span class="badge">{{section.vote}}</span>
-                                </span>
-                                <button class="btn btn-danger" ng-click="DownVote(section)">-</button>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <h4>{{section.name}}</h4>
-                            <h5>{{section.subject}}</h5>
-                            <h5>{{section.duration}}</h5>
+            مرتب سازی :
+            <select class="form-control input-sm" ng-model="sortorder">
+                <option value="name" selected>نام</option>
+                <option value="-vote">امتیاز</option>
+            </select>
+            <hr>
+            <div class="well well-sm" ng-repeat="section in event.sections | orderBy: sortorder | limitTo: 3">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="btn-group-vertical" role="group" aria-label="...">
+                            <button class="btn btn-success" ng-click="UpVote(section)">+</button>
+                            <span class="input-group-addon">
+                                <span class="badge">{{section.vote}}</span>
+                            </span>
+                            <button class="btn btn-danger" ng-click="DownVote(section)">-</button>
                         </div>
                     </div>
-
+                    <div class="col-xs-8">
+                        <h4>{{section.name}}</h4>
+                        <h5>{{section.subject}}</h5>
+                        <h5>{{section.duration| durations }}</h5>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -96,12 +104,13 @@
 
 
     <!-- scripts -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/jquery/dist/js/jquery.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="app.js" charset="utf-8"></script>
     <script src="js/Controller/EventController.js" charset="utf-8"></script>
+    <script src="js/filters.js" charset="utf-8"></script>
 </body>
 
 </html>
